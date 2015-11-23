@@ -1,0 +1,108 @@
+﻿@model GaryBookstore.Web.Entities.Book
+
+<!DOCTYPE html>
+<style type="text/css">
+    table.details {
+        margin-top: 20px;
+        margin-bottom:20px;
+        margin-left:20px;
+        margin-right:20px;
+    }
+    h1.title {
+        margin-left:40px;
+        margin-right:20px;
+    }
+    li.info {
+        font-size:20px;
+        margin-left:40px;
+        margin-right:20px;
+    }
+    li.our-price {
+        list-style-type: none;
+        font-size:25px;
+        margin-left:20px;
+        margin-right:20px;
+        margin-bottom:10px;
+        color:red;
+    }
+    li.list-price {
+        list-style-type:none;
+        font-size:22px;
+        margin-left:20px;
+        margin-right:20px;
+        margin-bottom:10px;
+    }
+    li.purchase {
+        list-style-type:none;
+        font-size:22px;
+        margin-left:20px;
+        margin-right:20px;
+        margin-bottom:10px;
+    }
+    .cart-button {
+        background:orange;
+        font-family: 'Droid Sans', sans-serif;
+	    -webkit-border-radius: 25px;
+	    -moz-border-radius: 25px;
+	    border-radius: 25px;
+	    margin: 40px;
+	    border: 1px solid rgba(0,0,0,0.4) ;
+	    cursor: pointer;
+    }
+    p.desc {
+        font-size:20px;
+        font-style:italic;
+    }
+</style>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookDetails</title>
+</head>
+<body>
+    <div>
+        <table class="details" border="0">
+            <tr>
+                <td><img src=@Model.Thumbnail width="300" height="480"></td>
+                <td>
+                    <h1 class="title"><strong>@Model.Title</strong><small> - @Model.PublishedDate.ToString("MMMM dd, yyyy")</small></h1>
+                    <ul>
+                        <li class="info"><strong>Authors:</strong> @ViewData["authors"]</li>
+                        <li class="info"><strong>Publisher:</strong> @Model.Publisher</li>
+                        <li class="info"><strong>Ratings:</strong> @Model.AverageRating</li>
+                        <li class="info"><strong>Language:</strong> English</li>
+                        <li class="info"><strong>Paperback:</strong> @Model.PageCount pages</li>
+                        <li class="info"><strong>ISBN-10:</strong> @Model.ISBN_10</li>
+                        <li class="info"><strong>ISBN-13:</strong> @Model.ISBN_13</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li class="our-price">Our price: @Model.Inventory.RetailPrice</li>
+                        <li class="list-price">List Price: <del>@Model.ListPrice</del></li>
+                        <li class="purchase">
+                            @using (Html.BeginForm("AddToCart", "ShoppingCart", new { id = Model.BookId }, FormMethod.Get))
+                            {
+                                List<SelectListItem> list = new List<SelectListItem>();
+                                for (int i = 1; i <= 30; i++)
+                                {
+                                    list.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                                }
+                                @Html.DropDownList("qty", list)
+                                <input type="submit" value="Add to Cart" class="cart-button" />
+                            }
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="lead">
+        <h2>Description</h2>
+    </div>
+    <div>
+        <p class="desc">@Model.Description</p>
+    </div>
+</body>
+</html>

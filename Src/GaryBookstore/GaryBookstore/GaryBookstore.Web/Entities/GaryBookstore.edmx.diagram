@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f5815bbb79bd4b138420bc352190a786" Name="Diagram1">
+        <EntityTypeShape EntityType="GaryBookstoreModel.Author" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.Book" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.Cart" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.Category" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.Inventory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.Order" Width="1.5" PointX="3.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.OrderDetail" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.User" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GaryBookstoreModel.BookAuthor" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_BookAuthor_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_BookAuthor_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_Cart_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_OrderDetail_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.BookCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="GaryBookstoreModel.FK_Inventory_Book" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

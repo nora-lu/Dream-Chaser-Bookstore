@@ -1,0 +1,67 @@
+﻿@model List<GaryBookstore.Web.Entities.Book>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style type="text/css">
+    h1.welcome {
+        font-size: 55px;
+    }
+    ul {
+        list-style-image:none
+    }
+    li.book-list {
+        list-style-position:inside;
+        width:180px;
+        display: inline-block;
+        /*float:left;*/
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        margin-bottom:10px;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1 class="welcome">Welcome to Dream Chaser's Bookstore!</h1>
+    <p class="lead">Dream Chaser's Bookstore is a great place for finding your favorite book and buy it.</p>
+    <p>@Html.ActionLink("View All Books", "ViewBooks", new { controller = "Book", pageNumber = 1 }, new { @class = "btn btn-primary btn-lg" }) &raquo;</p>
+</div>
+
+@*<div class="row">
+    <div class="col-md-4">
+        <h2>Fictions</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Religion</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Computers</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>*@
+
+<div class="lead">
+    <h2>Featured Books</h2>
+</div>
+
+<div class="row">
+    @foreach (var book in this.Model)
+            {
+        <div class="col-md-4">
+            <ul>
+                <li class="book-list"><a href="/Book/ViewSingleBook/@book.BookId"><img src=@book.Thumbnail width="150" height="240"></li>
+                <li class="book-list">@book.Title</li>
+            </ul>
+        </div>
+    }
+</div>

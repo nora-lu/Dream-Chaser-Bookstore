@@ -1,0 +1,117 @@
+﻿@model List<GaryBookstore.Web.Entities.Book>
+<!DOCTYPE html>
+<style type="text/css">
+    ul {
+        list-style-image:none
+    }
+    li.book-list {
+        list-style-position:inside;
+        width:180px;
+        display: inline-block;
+        /*float:left;*/
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        margin-bottom:10px;
+    }
+    li.purchase {
+        list-style-type:none;
+        font-size:17px;
+        margin-bottom:10px;
+    }
+    .cart-button {
+        background: green;
+	    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',endColorstr='#188BC0',GradientType=0);
+	    padding:8px 13px;
+	    color:#fff;
+	    font-family:'Helvetica Neue',sans-serif;
+	    font-size:17px;
+	    border-radius:4px;
+	    -moz-border-radius:4px;
+	    -webkit-border-radius:4px;
+	    border:1px solid #1A87B9
+    }
+    .styled-button {
+        background: #25A6E1;
+	    background: -moz-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+	    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#25A6E1),color-stop(100%,#188BC0));
+	    background: -webkit-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+	    background: -o-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+	    background: -ms-linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+	    background: linear-gradient(top,#25A6E1 0%,#188BC0 100%);
+	    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#25A6E1',endColorstr='#188BC0',GradientType=0);
+	    padding:8px 13px;
+	    color:#fff;
+	    font-family:'Helvetica Neue',sans-serif;
+	    font-size:17px;
+	    border-radius:4px;
+	    -moz-border-radius:4px;
+	    -webkit-border-radius:4px;
+	    border:1px solid #1A87B9;
+        margin-top:10px
+    }
+    
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookList</title>
+</head>
+
+<body>
+    <div>
+        <h1>Book List</h1>
+        @*<table>
+            <tr>
+                <th>Cover Image</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>List Price</th>
+                <th>Buy it!</th>
+            </tr>*@
+        <div class="row">
+            @foreach (var book in this.Model)
+            {
+                <div class="col-md-3">
+                    <ul>
+                        <li class="book-list"><a href="/Book/ViewSingleBook/@book.BookId"><img src=@book.Thumbnail width="150" height="240"></li>
+                        <li class="book-list">@book.Title</li>
+                        <li class="book-list">@book.Inventory.RetailPrice</li>
+                        <li class="purchase">
+                            @using (Html.BeginForm("AddToCart", "ShoppingCart", new { id = book.BookId }, FormMethod.Get))
+                            {
+                                List<SelectListItem> list = new List<SelectListItem>();
+                                for (int i = 1; i <= 30; i++)
+                                {
+                                    list.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                                }
+                                @Html.DropDownList("qty", list)
+                                <input type="submit" value="Add to Cart" class="cart-button" />
+                            }
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+
+        @using (Html.BeginForm("ViewBooks", "Book", FormMethod.Get))
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            for (int i = 1; i <= (int)ViewData["maxPage"]; i++)
+            {
+                if (i == (int)ViewData["curPage"])
+                {
+                    list.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = true });
+                }
+                else
+                {
+                    list.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+                }
+            }
+            <input type="submit" value="Go to Page" class="styled-button" />
+            @Html.DropDownList("pageNumber", list)
+        }
+    </div>
+
+</body>
+</html>

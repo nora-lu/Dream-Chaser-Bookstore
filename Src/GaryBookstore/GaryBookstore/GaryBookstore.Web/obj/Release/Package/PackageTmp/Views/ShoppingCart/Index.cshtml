@@ -1,0 +1,127 @@
+﻿@model GaryBookstore.Web.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #checkout-button {
+        float:left;
+        margin-bottom:20px
+    }
+    #continue {
+        width: 200px;
+        margin: 0 auto;
+        margin-bottom:20px
+    }
+    #review-table {
+        font-size: 18px
+    }
+    .alert-success {
+        font-size:20px
+    }
+</style>
+
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".RemoveLink").click(function () {
+            var bookToDelete = $(this).attr("data-id");
+            if (bookToDelete != '') {
+                $.post("/ShoppingCart/RemoveFromCart", {"id": bookToDelete},
+                    function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.Removed) {
+                            if (data.CartCount == 0) {
+                                $('#review-message').text('Your Cart is Empty!');
+                                $('#review-table').remove();
+                                $('#checkout-button').remove();
+                                $('#update-message').text(data.Message);
+                            } else {
+                                $('#row-' + data.DeleteId).fadeOut('fast');
+                                $('#cart-total').text(data.CartTotal);
+                                $('#update-message').text(data.Message);
+                            }
+                        }
+                    })
+            }
+        })
+
+        $('.dropdownlist').change(function () {
+            var bookToUpdate = $(this).attr("data-id");
+            if (bookToUpdate != '') {
+                $.post("/ShoppingCart/UpdateCart", { "id": bookToUpdate, "qty": $('#drop-' + bookToUpdate + ' option:selected').val() },
+                    function (data) {
+                        $('#item-count-' + data.ItemId).text(data.ItemCount);
+                        $('#update-message').text(data.Message);
+                        $('#cart-total').text(data.CartTotal);
+                    })
+            }
+        });
+    })
+</script>
+
+@if (Model.CartTotal == 0)
+{
+    <h2><em><strong>Your Cart Is Empty!</strong></em></h2>
+    <div>@Html.ActionLink("Continue Shopping", "Index", new { controller = "Home"}, new { @class = "btn btn-primary btn-lg" })</div>
+}
+else
+{
+    <h2>
+        <em id="review-message"><strong>Review your cart:</strong></em>
+    </h2>
+    <div id ="checkout-button">
+        @Html.ActionLink("Checkout", "AddressAndPayment", new { controller = "Checkout" }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div id="continue">
+        @Html.ActionLink("Continue Shopping", "Index", new { controller = "Home" }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div id="update-message" class="alert-success"></div>
+    <table id ="review-table" class="table table-hover">
+        <tr>
+            <th>Book Name</th>
+            <th>Price (each)</th>
+            <th>Quantity</th>
+            <th>Update</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.CartItems)
+        {
+            <tr id="row-@item.BookId">
+                <td>@Html.ActionLink(item.Book.Title, "ViewSingleBook", "Book", new { id = item.BookId }, null)</td>
+                <td>@item.Book.Inventory.RetailPrice</td>
+                <td id="item-count-@item.BookId">@item.Count</td>
+                <td>
+                    <form>
+                        <select class="dropdownlist" id="drop-@item.BookId" data-id="@item.BookId">
+                            @for (int i = 1; i <= 30; i++)
+                            {
+                                if (i == item.Count)
+                                { 
+                                    <option value="@i" selected="selected">@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        </select>
+                    </form>
+                </td>
+                <td><a href="#" class="RemoveLink" data-id="@item.BookId">Remove from cart</a></td>
+            </tr>
+        }
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="cart-total">
+                @Model.CartTotal
+            </td>
+        </tr>
+    </table>
+}

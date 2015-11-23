@@ -1,0 +1,3 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("View Cart", "Index", "ShoppingCart")</li>
+</ul>

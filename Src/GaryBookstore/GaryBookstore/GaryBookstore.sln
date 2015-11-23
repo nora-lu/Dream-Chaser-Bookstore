@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaryBookstore.Web", "GaryBookstore.Web\GaryBookstore.Web.csproj", "{C90CC86B-B74C-4277-BC4E-719A8E1FDD9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C90CC86B-B74C-4277-BC4E-719A8E1FDD9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C90CC86B-B74C-4277-BC4E-719A8E1FDD9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C90CC86B-B74C-4277-BC4E-719A8E1FDD9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C90CC86B-B74C-4277-BC4E-719A8E1FDD9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://greatsummer.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = GaryBookstore.Web\\GaryBookstore.Web.csproj
+		SccProjectName1 = GaryBookstore.Web
+		SccLocalPath1 = GaryBookstore.Web
+	EndGlobalSection
+EndGlobal
